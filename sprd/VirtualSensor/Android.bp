@@ -1,0 +1,73 @@
+//
+// SPDX-FileCopyrightText: 2022 Unisoc (Shanghai) Technologies Co., Ltd
+// SPDX-License-Identifier: LicenseRef-Unisoc-General-1.0
+//
+// Copyright 2022 Unisoc (Shanghai) Technologies Co., Ltd.
+// Licensed under the Unisoc General Software License, version 1.0 (the License);
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// https://www.unisoc.com/en_us/license/UNISOC_GENERAL_LICENSE_V1.0-EN_US
+// Software distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OF ANY KIND, either express or implied.
+// See the Unisoc General Software License, version 1.0 for more details.
+//
+
+cc_library_shared {
+    name: "libsensor_virtual_sensor",
+    srcs: [
+        "virtual_sensor_mipi_raw.c",
+        "virtual_sensor_wrapper.cpp",
+        "virtual_sensor_xml.cpp",
+        "virtual_sensor.cpp",
+        ],
+    defaults: ["camera_defaults"],
+
+    shared_libs: [
+        "libcutils",
+        "libcamcommon",
+        "libcamoem",
+        "libdl",
+        "libutils",
+        "libcamsensor",
+        "liblog",
+        "libxml2",
+        "liblwpcommon",
+        "libc++",
+    ],
+
+    cflags: [
+        "-fno-strict-aliasing",
+        "-Wno-unused-parameter",
+        "-Wno-error=format",
+        "-DCONFIG_USE_CAMERASERVER_PROC",
+        "-DITS_VERSION=1"
+    ],
+
+    include_dirs: [
+        "vendor/sprd/external/camera_opensource/pugi"
+    ],
+
+    cppflags: ["-fexceptions", "-std=gnu++11", "-std=c++17", "-o0", "-g", "-Wall", "-lpthread"],
+
+    header_libs: [
+        "libsensor_headers",
+        "libcamera_sensor_headers",
+        "libcamera_oem2v7_headers",
+        "licamcommon_headers",
+        "libispalg_common_headers",
+        "libisp2.7_middleware_headers",
+        "libisp2.7_isp_tune_headers",
+        "libisp2.7_driver_headers",
+        "libisp2.7_param_manager_headers",
+        "libisp2.7_bridge_headers",
+        "libcamera_kernel_headers",
+        "libsensor_otp_parser_headers",
+        "libpss_its_drv_headers",
+        "libutils_headers",
+        "liblwp_Framework_bufferManager_headers",
+        "libkernel-headers_headers",
+        "libcamera_kernel_headers",
+        "libiss_headers",
+    ],
+    device_specific: true,
+}

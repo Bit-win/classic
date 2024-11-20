@@ -1,0 +1,44 @@
+//
+// SPDX-FileCopyrightText: 2022 Unisoc (Shanghai) Technologies Co., Ltd
+// SPDX-License-Identifier: LicenseRef-Unisoc-General-1.0
+//
+// Copyright 2022 Unisoc (Shanghai) Technologies Co., Ltd.
+// Licensed under the Unisoc General Software License, version 1.0 (the License);
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// https://www.unisoc.com/en_us/license/UNISOC_GENERAL_LICENSE_V1.0-EN_US
+// Software distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OF ANY KIND, either express or implied.
+// See the Unisoc General Software License, version 1.0 for more details.
+//
+
+cc_prebuilt_library_shared {
+    name: "libfcell",
+
+    compile_multilib: "both",
+
+    target: {
+        android_arm: {
+            srcs: ["lib/armeabi-v7a/libfcell.so"],
+        },
+        android_arm64: {
+            srcs: ["lib/arm64-v8a/libfcell.so"],
+        },
+    },
+
+    device_specific: true,
+}
+
+cc_library_shared {
+    name: "libsprd_fcell",
+    srcs: ["sprd_fcell_process.c"],
+
+    header_libs: ["libsensor_OmniVision_4in1_headers"],
+    cflags: ["-O3", "-fPIC", "-fvisibility=hidden", "-nodefaultlibs"],
+
+    shared_libs: ["libfcell"],
+
+    export_header_lib_headers: ["libsensor_OmniVision_4in1_headers"],
+    device_specific: true,
+
+}
